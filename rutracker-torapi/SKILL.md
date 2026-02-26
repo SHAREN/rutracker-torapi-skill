@@ -1,6 +1,6 @@
 ---
 name: rutracker-torapi
-description: Поиск и загрузка торрентов (фильмы, сериалы, софт, Linux-образы и другие файлы) через RuTracker TorAPI. Используй, когда пользователь просит найти торрент, получить magnet/.torrent или добавить раздачу в qBittorrent WebUI с подтверждением.
+description: Поиск и загрузка торрентов (фильмы, сериалы, софт, Linux-образы и другие файлы) через TorAPI провайдеры RuTracker, Kinozal, RuTor и NoNameClub. Используй, когда пользователь просит найти торрент, получить magnet/.torrent или добавить раздачу в qBittorrent WebUI с подтверждением.
 user-invocable: true
 metadata:
   {
@@ -18,7 +18,7 @@ metadata:
     }
   }
 ---
-# RuTracker + TorAPI (поиск и загрузка торрент-файлов)
+# TorAPI Multi-Provider (RuTracker, Kinozal, RuTor, NoNameClub)
 
 Когда использовать:
 - Пользователь просит найти или скачать фильм, сериал, музыку, софт, игру, Linux-образ или другой торрент-контент
@@ -26,11 +26,15 @@ metadata:
 - Нужно добавить выбранную раздачу в qBittorrent WebUI
 
 Основные команды:
-1. Поиск по названию на RuTracker (всегда через локальный скрипт с сортировкой по сидам):
-`bash scripts/search-rutracker-sorted.sh "НАЗВАНИЕ" 10 0`
+1. Поиск по названию (всегда через локальный скрипт с сортировкой по сидам):
+`bash scripts/search-torrents-sorted.sh "НАЗВАНИЕ" 10 0 rutracker`
+`bash scripts/search-torrents-sorted.sh "НАЗВАНИЕ" 10 0 kinozal`
+`bash scripts/search-torrents-sorted.sh "НАЗВАНИЕ" 10 0 rutor`
+`bash scripts/search-torrents-sorted.sh "НАЗВАНИЕ" 10 0 nonameclub`
 
 2. Детали по ID (получить magnet/hash/.torrent):
-`curl -s "https://torapi.vercel.app/api/search/id/rutracker?query=ID" | jq`
+`curl -s "https://torapi.vercel.app/api/search/id/<provider>?query=ID" | jq`
+где `<provider>`: `rutracker | kinozal | rutor | nonameclub`
 
 3. Добавить торрент в qBittorrent «умным» сценарием (рекомендуется всегда):
 `bash scripts/add-series-smart.sh --id ID`
